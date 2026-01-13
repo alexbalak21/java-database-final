@@ -1,11 +1,16 @@
 package com.project.code.Model;
 
-import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class OrderItem {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,17 +26,9 @@ public class OrderItem {
     private Product product;
 
     private Integer quantity;
-
     private Double price;
 
-    public OrderItem() {}
-
-    public OrderItem(OrderDetails order, Product product, Integer quantity, Double price) {
-        this.order = order;
-        this.product = product;
-        this.quantity = quantity;
-        this.price = price;
-    }
+    // Getters and Setters
 
     public Long getId() {
         return id;
@@ -72,5 +69,14 @@ public class OrderItem {
     public void setPrice(Double price) {
         this.price = price;
     }
-}
 
+    // Constructors (if necessary)
+    public OrderItem() {}
+
+    public OrderItem(OrderDetails order, Product product, Integer quantity, Double price) {
+        this.order = order;
+        this.product = product;
+        this.quantity = quantity;
+        this.price = price;
+    }
+}

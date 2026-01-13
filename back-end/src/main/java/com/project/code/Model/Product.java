@@ -1,39 +1,49 @@
 package com.project.code.Model;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "product", uniqueConstraints = @UniqueConstraint(columnNames = "sku"))
 public class Product {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    @NotNull
+    @NotNull(message = "Name cannot be null")
     private String name;
 
-    @NotNull
+    @NotNull(message = "Name cannot be null")
     private String category;
 
-    @NotNull
+    @NotNull(message = "Name cannot be null")
     private Double price;
 
-    @NotNull
+    @NotNull(message = "Name cannot be null")
     private String sku;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
     @JsonManagedReference("inventory-product")
-    private List<Inventory> inventories;
+    private List<Inventory> inventory;
 
-    public long getId() {
+    // Getters and Setters
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -69,13 +79,32 @@ public class Product {
         this.sku = sku;
     }
 
-    public List<Inventory> getInventories() {
-        return inventories;
+    public List<Inventory> getInventory() {
+        return inventory;
     }
 
-    public void setInventories(List<Inventory> inventories) {
-        this.inventories = inventories;
+    public void setInventory(List<Inventory> inventory) {
+        this.inventory = inventory;
+    }
+
+    // Constructors (if necessary)
+    public Product() {
+    }
+
+    public Product(String name, String category, Double price, String sku) {
+        this.name = name;
+        this.category = category;
+        this.price = price;
+        this.sku = sku;
+    }
+
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", category='" + category + '\'' +
+                ", price=" + price +
+                ", sku='" + sku + '\'' +
+                '}';
     }
 }
-
-

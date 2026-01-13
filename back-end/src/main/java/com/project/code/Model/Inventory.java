@@ -1,18 +1,23 @@
 package com.project.code.Model;
 
-import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Inventory {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
     @JsonBackReference("inventory-product")
+    @JoinColumn(name = "product_id")
     private Product product;
 
     @ManyToOne
@@ -22,19 +27,13 @@ public class Inventory {
 
     private Integer stockLevel;
 
-    public Inventory() {}
+    // Getters and Setters
 
-    public Inventory(Product product, Store store, Integer stockLevel) {
-        this.product = product;
-        this.store = store;
-        this.stockLevel = stockLevel;
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -61,5 +60,23 @@ public class Inventory {
     public void setStockLevel(Integer stockLevel) {
         this.stockLevel = stockLevel;
     }
-}
 
+    // Constructors (if necessary)
+    public Inventory() {
+    }
+
+    public Inventory(Product product, Store store, Integer stockLevel) {
+        this.product = product;
+        this.store = store;
+        this.stockLevel = stockLevel;
+    }
+
+    public String toString() {
+        return "Inventory{" +
+                "id=" + id +
+                ", product=" + (product != null ? product.getId() : "null") +
+                ", store=" + (store != null ? store.getId() : "null") +
+                ", stockLevel=" + stockLevel +
+                '}';
+    }
+}
