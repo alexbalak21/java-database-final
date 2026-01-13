@@ -22,6 +22,8 @@ public class Inventory {
 
     private Integer stockLevel;
 
+    public Inventory() {}
+
     public Inventory(Product product, Store store, Integer stockLevel) {
         this.product = product;
         this.store = store;

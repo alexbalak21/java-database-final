@@ -25,6 +25,8 @@ public class Store {
     @JsonManagedReference("inventory-store")
     private List<Inventory> inventories;
 
+    public Store() {}
+
     public Store(String name, String address) {
         this.name = name;
         this.address = address;
