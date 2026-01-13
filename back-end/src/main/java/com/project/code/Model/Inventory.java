@@ -1,10 +1,11 @@
 package com.project.code.Model;
 
+import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.*;
 
 @Entity
 public class Inventory {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -20,10 +21,6 @@ public class Inventory {
     private Store store;
 
     private Integer stockLevel;
-
-    public Inventory() {
-        // Default constructor
-    }
 
     public Inventory(Product product, Store store, Integer stockLevel) {
         this.product = product;

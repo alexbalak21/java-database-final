@@ -2,34 +2,27 @@ package com.project.code.Model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
+import javax.validation.constraints.NotNull;
 
 @Document(collection = "reviews")
 public class Review {
+
     @Id
     private String id;
 
-    @NotNull(message = "Customer ID cannot be null")
+    @NotNull(message = "Customer cannot be null")
     private Long customerId;
 
-    @NotNull(message = "Product ID cannot be null")
+    @NotNull(message = "Product cannot be null")
     private Long productId;
 
-    @NotNull(message = "Store ID cannot be null")
+    @NotNull(message = "Store cannot be null")
     private Long storeId;
 
     @NotNull(message = "Rating cannot be null")
-    @Min(value = 1, message = "Rating must be at least 1")
-    @Max(value = 5, message = "Rating must not exceed 5")
     private Integer rating;
 
     private String comment;
-
-    public Review() {
-        // Default constructor
-    }
 
     public Review(Long customerId, Long productId, Long storeId, Integer rating, String comment) {
         this.customerId = customerId;
@@ -39,7 +32,6 @@ public class Review {
         this.comment = comment;
     }
 
-    // Getters and Setters
     public String getId() {
         return id;
     }
@@ -71,7 +63,20 @@ public class Review {
     public void setStoreId(Long storeId) {
         this.storeId = storeId;
     }
-//    - Add getter and setter methods for all fields (customerId, productId, storeId, rating, comment).
-  
 
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 }

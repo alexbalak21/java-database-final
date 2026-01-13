@@ -1,41 +1,36 @@
 package com.project.code.Model;
 
+import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "order_details")
 public class OrderDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id", nullable = false)
-    @JsonManagedReference("order-customer")
+    @JoinColumn(name = "customer_id")
+    @JsonManagedReference
     private Customer customer;
 
     @ManyToOne
-    @JoinColumn(name = "store_id", nullable = false)
-    @JsonManagedReference("order-store")
+    @JoinColumn(name = "store_id")
+    @JsonManagedReference
     private Store store;
 
-    @Column(nullable = false)
     private Double totalPrice;
 
-    @Column(nullable = false)
     private LocalDateTime date;
 
-    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference("order-items")
-    private List<OrderItem> orderItems = new ArrayList<>();
-    
-    public OrderDetails() {
-        // Default constructor
-    }
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
+    @JsonManagedReference
+    private List<OrderItem> orderItems;
+
+    public OrderDetails() {}
 
     public OrderDetails(Customer customer, Store store, Double totalPrice, LocalDateTime date) {
         this.customer = customer;
@@ -44,7 +39,6 @@ public class OrderDetails {
         this.date = date;
     }
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -91,16 +85,5 @@ public class OrderDetails {
 
     public void setOrderItems(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
-    }
-
-    // Helper methods
-    public void addOrderItem(OrderItem orderItem) {
-        orderItems.add(orderItem);
-        orderItem.setOrder(this);
-    }
-
-    public void removeOrderItem(OrderItem orderItem) {
-        orderItems.remove(orderItem);
-        orderItem.setOrder(null);
     }
 }

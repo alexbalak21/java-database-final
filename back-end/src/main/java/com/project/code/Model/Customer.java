@@ -1,8 +1,8 @@
 package com.project.code.Model;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -23,7 +23,7 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
     @JsonManagedReference
-    private List<Order> orders;
+    private List<OrderDetails> orders;
 
     public long getId() {
         return id;
@@ -57,11 +57,11 @@ public class Customer {
         this.phone = phone;
     }
 
-    public List<Order> getOrders() {
+    public List<OrderDetails> getOrders() {
         return orders;
     }
 
-    public void setOrders(List<Order> orders) {
+    public void setOrders(List<OrderDetails> orders) {
         this.orders = orders;
     }
 }

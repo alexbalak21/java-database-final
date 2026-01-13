@@ -1,48 +1,34 @@
 package com.project.code.Model;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
-@Table(name = "product", 
-       uniqueConstraints = @UniqueConstraint(columnNames = "sku"))
+@Table(name = "product", uniqueConstraints = @UniqueConstraint(columnNames = "sku"))
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotNull(message = "Product name cannot be null")
+    @NotNull
     private String name;
 
-    @NotNull(message = "Category cannot be null")
+    @NotNull
     private String category;
 
-    @NotNull(message = "Price cannot be null")
+    @NotNull
     private Double price;
 
-    @NotNull(message = "SKU cannot be null")
-    @Column(unique = true)
+    @NotNull
     private String sku;
 
     @OneToMany(mappedBy = "product")
     @JsonManagedReference("inventory-product")
     private List<Inventory> inventories;
 
-    public Product() {
-        // Default constructor
-    }
-
-    public Product(String name, String category, Double price, String sku) {
-        this.name = name;
-        this.category = category;
-        this.price = price;
-        this.sku = sku;
-    }
-
-    // Getters and Setters
     public long getId() {
         return id;
     }
