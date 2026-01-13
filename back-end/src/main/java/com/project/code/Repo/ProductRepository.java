@@ -18,8 +18,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     Product findByName(String name);
 
-    Product findById(Long id);
-
     @Query("SELECT i.product FROM Inventory i WHERE i.store.id = :storeId AND i.product.category = :category")
     List<Product> findByNameLike(@Param("storeId") Long storeId, @Param("pname") String pname);
 

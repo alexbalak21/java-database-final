@@ -1,7 +1,7 @@
 package com.project.code.Model;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.List;
 
