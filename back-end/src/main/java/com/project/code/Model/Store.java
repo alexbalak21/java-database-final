@@ -66,4 +66,5 @@ public class Store {
     public void setInventories(List<Inventory> inventories) {
         this.inventories = inventories;
     }
+}
 
